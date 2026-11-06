@@ -206,7 +206,42 @@ Organizar a rotina competitiva de uma equipe de Valorant em um registro único, 
 
 ### 2.5 Diagrama de casos de uso
 
-> *A ser preenchido.*
+![Diagrama de casos de uso do VTM](imagens/diagrama-casos-de-uso.png)
+
+*Figura 1 – Diagrama de casos de uso do Valorant Team Manager.*
+
+#### Atores
+
+| Ator | Descrição |
+|------|-----------|
+| Manager | Administra o time, o elenco e as inscrições em campeonatos, e responde aos convites de treino. |
+| Treinador | Responsável técnico: monta composições, agenda e cancela treinos e registra resultados e partidas. |
+| Jogador | Membro do elenco: informa os agentes que domina, confirma presença e consulta a agenda. |
+
+#### Casos de uso
+
+| ID | Caso de uso | Atores | Requisitos |
+|----|-------------|--------|------------|
+| UC01 | Autenticar-se | Manager, Treinador, Jogador | RF01 |
+| UC02 | Gerenciar time | Manager | RF02 |
+| UC03 | Gerenciar elenco | Manager | RF03 |
+| UC04 | Registrar agentes dominados | Jogador | RF04 |
+| UC05 | Gerenciar composições | Treinador | RF05, RF06 |
+| UC06 | Agendar treino | Treinador | RF07 |
+| UC07 | Responder convite de treino | Manager | RF08 |
+| UC08 | Confirmar presença | Jogador | RF09 |
+| UC09 | Registrar resultado de treino | Treinador | RF10 |
+| UC10 | Inscrever time em campeonato | Manager | RF11 |
+| UC11 | Registrar partida de campeonato | Treinador | RF12 |
+| UC12 | Consultar agenda | Jogador | RF13 |
+| UC13 | Consultar histórico | Treinador, Manager | RF14 |
+| UC14 | Cancelar treino | Treinador | RF15 |
+| UC15 | Verificar conflito de horários | (incluído por UC06 e UC08) | RN04 |
+
+#### Relacionamentos
+
+- **UC06 – Agendar treino «include» UC15 – Verificar conflito de horários:** ao agendar, o sistema verifica se algum jogador já tem outro evento no mesmo horário (RN04).
+- **UC08 – Confirmar presença «include» UC15 – Verificar conflito de horários:** ao confirmar presença, o sistema faz a mesma verificação. Por ser um comportamento compartilhado por dois casos de uso, ele foi separado em UC15.
 
 ### 2.6 Documentação dos casos de uso
 
@@ -257,7 +292,7 @@ Organizar a rotina competitiva de uma equipe de Valorant em um registro único, 
 
 ## 6. Referências
 
-- **Ferramenta dos diagramas:** *a definir*
+- **Ferramenta dos diagramas:** PlantUML, por meio do editor online PlantText (planttext.com)
 - **Ferramenta do protótipo:** *a definir*
 - **Uso de IA:** *a preencher*
 - **Bibliografia:** *a preencher*
