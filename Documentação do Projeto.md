@@ -3,127 +3,56 @@
 **Disciplina:** Análise e Projeto de Sistemas (APS)
 **Aluno:** Olavo Appel Neto
 
+Esta documentação está dividida em três arquivos:
+
+- **Documentação do Projeto.md** (este arquivo): escopo, requisitos, casos de uso documentados, considerações finais e referências.
+- [Diagramas.md](Diagramas.md): diagrama de casos de uso, diagramas de classes e segundo diagrama UML.
+- [Protótipo.md](Prot%C3%B3tipo.md): mapa do site e telas.
+
 ## Sumário
 
 1. [Descrição e delimitação do escopo](#1-descrição-e-delimitação-do-escopo)
-2. [Fase de análise](#2-fase-de-análise)
-3. [Fase de projeto](#3-fase-de-projeto)
-4. [Protótipo do sistema](#4-protótipo-do-sistema)
-5. [Considerações finais](#5-considerações-finais)
-6. [Referências](#6-referências)
+2. [Documento de requisitos](#2-documento-de-requisitos)
+3. [Documentação dos casos de uso](#3-documentação-dos-casos-de-uso)
+4. [Diagramas](#4-diagramas)
+5. [Protótipo do sistema](#5-protótipo-do-sistema)
+6. [Considerações finais](#6-considerações-finais)
+7. [Referências](#7-referências)
 
 ---
 
 ## 1. Descrição e delimitação do escopo
 
-### 1.1 Cenário
+### 1.1 Cenário e propósito
 
-O Valorant é um FPS tático 5x5 em que duas equipes se alternam entre ataque e defesa em diferentes mapas. Cada jogador escolhe um agente (personagem) de uma das quatro funções: duelista, iniciador, controlador ou sentinela. Em campeonatos, o desempenho de um time depende muito da preparação: quais agentes cada jogador domina, qual composição de agentes é a mais forte em cada mapa e quanto o time treina contra adversários.
+O Valorant é um FPS tático 5x5 em que duas equipes se alternam entre ataque e defesa em diferentes mapas. Cada jogador escolhe um agente (personagem) de uma das quatro funções: duelista, iniciador, controlador ou sentinela. Em campeonatos, o desempenho de um time depende da preparação: quais agentes cada jogador domina, qual composição é a mais forte em cada mapa e quanto o time treina contra adversários.
 
-O **Valorant Team Manager (VTM)** é um sistema web que apoia essa preparação, reunindo em um só lugar o elenco, as composições por mapa, os treinos e a participação em campeonatos.
+O **Valorant Team Manager (VTM)** é um sistema web que reúne em um só lugar o elenco, as composições por mapa, os treinos e a participação em campeonatos, substituindo as planilhas, imagens e conversas de Discord usadas hoje por times amadores, universitários e semiprofissionais.
 
-### 1.2 Propósito
+### 1.2 Público-alvo
 
-Organizar a rotina competitiva de uma equipe de Valorant, substituindo planilhas e mensagens soltas em aplicativos de conversa por um registro único, consultável e padronizado.
+- **Manager (gerente do time):** administra o time e o elenco, inscreve o time em campeonatos e responde aos convites de treino.
+- **Treinador (coach):** monta composições, agenda treinos e registra resultados e partidas.
+- **Jogador:** informa os agentes que domina, confirma presença e consulta a agenda.
 
-### 1.3 Contexto de uso
+### 1.3 Problema que o sistema resolve
 
-O sistema é usado no dia a dia de times amadores, universitários e semiprofissionais que disputam campeonatos. O treinador define composições e marca treinos; os jogadores consultam suas funções, agentes e agenda; o manager mantém o cadastro do time e sua inscrição em campeonatos.
+- As composições por mapa ficam espalhadas, sem versão única.
+- Não há controle de quais agentes cada jogador domina, o que gera composições impossíveis de executar.
+- Combinar treinos com outros times é manual, com conflitos de horário e faltas.
+- O histórico de treinos e partidas não é registrado.
 
-### 1.4 Público-alvo
+### 1.4 Funcionalidades contempladas
 
-- **Treinador (coach):** monta composições, agenda treinos e acompanha o desempenho do time.
-- **Jogador:** consulta composições, agenda e confirma presença; mantém seus agentes principais.
-- **Manager (Gerente do time):** administra o elenco e inscreve o time em campeonatos.
+Gestão do time e do elenco; agentes dominados por jogador; composições por mapa; agendamento de treinos com outros times (convite, aceite e confirmação de presença); resultados de treinos; inscrição em campeonatos e registro de partidas; consulta de agenda e histórico; autenticação por perfil.
 
-### 1.5 Problema que o sistema resolve
+### 1.5 Fora do escopo
 
-- As composições por mapa ficam espalhadas em planilhas, imagens e conversas, sem versão única.
-- Não há controle claro de quais agentes cada jogador domina, o que gera composições impossíveis de executar.
-- Combinar treinos com outros times é feito de forma manual e desorganizada, com conflitos de horário e faltas.
-- O histórico de treinos e partidas não é registrado, dificultando a análise de evolução do time.
-
-### 1.6 Funcionalidades contempladas
-
-- Cadastro e gerenciamento do time e do elenco (jogadores, função e papel no time).
-- Registro dos agentes que cada jogador domina.
-- Montagem de composições de agentes por mapa, associando um agente a cada jogador.
-- Agendamento de treinos (scrims) com outros times, com convite, aceite ou recusa e confirmação de presença dos jogadores.
-- Registro do resultado e de observações dos treinos.
-- Cadastro de campeonatos e inscrição do time, com o conjunto de mapas disputados.
-- Registro das partidas do campeonato e dos resultados.
-- Autenticação e controle de acesso por perfil (treinador, jogador, manager).
-
-### 1.7 Fora do escopo
-
-- Integração com a API oficial da Riot Games ou importação automática de estatísticas.
-- Transmissão ao vivo, chat em tempo real e comunicação por voz.
-- Gestão financeira, patrocínios e contratos.
-- Organização de campeonatos (chaveamento e arbitragem); o sistema apenas registra a participação do time.
-
-### 1.8 Atores identificados (preliminar)
-
-| Ator | Descrição |
-|------|-----------|
-| Treinador | Responsável técnico; define composições e organiza treinos |
-| Jogador | Membro do elenco; consulta informações e confirma presença |
-| Manager | Administra o time e as inscrições em campeonatos |
+Integração com a API da Riot Games; chat, voz e transmissão ao vivo; gestão financeira e patrocínios; organização de campeonatos (chaveamento e arbitragem). O sistema apenas registra a participação do time.
 
 ---
 
-## 2. Fase de análise
-
-### 2.1 Requisitos funcionais
-
-| ID | Requisito | Ator |
-|----|-----------|------|
-| RF01 | O sistema deve permitir que o usuário se autentique com e-mail e senha e acesse apenas as funcionalidades do seu perfil (treinador, jogador ou manager), e que o manager crie a própria conta no primeiro acesso. | Todos |
-| RF02 | O sistema deve permitir que o manager cadastre e edite os dados do time (nome, tag e logo). | Manager |
-| RF03 | O sistema deve permitir que o manager adicione e remova membros do time (jogadores e treinador), informando nickname, e-mail, papel (titular, reserva ou treinador) e, para jogadores, a função principal, criando o acesso do novo membro ao sistema. | Manager |
-| RF04 | O sistema deve permitir que o jogador registre os agentes que domina, informando o nível de proficiência de cada um (básico, intermediário ou avançado). | Jogador |
-| RF05 | O sistema deve permitir que o treinador crie uma composição para um mapa, associando um agente a cada jogador titular. | Treinador |
-| RF06 | O sistema deve permitir que o treinador edite, exclua e consulte as composições do time, filtrando por mapa. | Treinador |
-| RF07 | O sistema deve permitir que o treinador agende um treino (scrim) com outro time cadastrado, informando data, horário, mapas e formato (MD1, MD2 ou MD3). | Treinador |
-| RF08 | O sistema deve permitir que o manager do time convidado aceite ou recuse o convite de treino recebido. | Manager |
-| RF09 | O sistema deve permitir que o jogador confirme ou recuse sua presença em um treino ou partida agendados. | Jogador |
-| RF10 | O sistema deve permitir que o treinador registre o resultado de um treino (placar por mapa) e observações sobre o desempenho do time. | Treinador |
-| RF11 | O sistema deve permitir que o manager cadastre um campeonato (nome, datas e mapas disputados) e inscreva o time nele. | Manager |
-| RF12 | O sistema deve permitir que o treinador registre as partidas de um campeonato (adversário, data, mapa e resultado). | Treinador |
-| RF13 | O sistema deve exibir ao jogador a agenda do time, com os treinos e as partidas futuras e o status de sua confirmação. | Jogador |
-| RF14 | O sistema deve permitir consultar o histórico de treinos e partidas, filtrando por período, adversário e mapa. | Treinador, Manager |
-| RF15 | O sistema deve permitir que o treinador cancele um treino agendado, notificando o time adversário e os jogadores. | Treinador |
-
-### 2.2 Requisitos não funcionais
-
-| ID | Categoria | Requisito |
-|----|-----------|-----------|
-| RNF01 | Desempenho | As consultas (agenda, composições e histórico) devem responder em até 3 segundos em 95% das requisições, com até 100 usuários simultâneos. |
-| RNF02 | Usabilidade | O sistema deve ser responsivo e utilizável em computadores e celulares, e um usuário novo deve conseguir consultar sua agenda sem treinamento prévio. |
-| RNF03 | Segurança | As senhas devem ser armazenadas com hash e toda comunicação deve usar HTTPS. |
-| RNF04 | Segurança | O acesso às funcionalidades deve ser controlado por perfil, e um usuário só pode ver e alterar dados do seu próprio time. |
-| RNF05 | Manutenibilidade | O sistema deve ser organizado em camadas (apresentação, regras de negócio e persistência), de modo que uma alteração em uma camada não exija mudanças nas demais. |
-| RNF06 | Disponibilidade | O sistema deve estar disponível em pelo menos 95% do tempo, medido mensalmente. |
-| RNF07 | Compatibilidade | O sistema deve funcionar nas duas últimas versões dos navegadores Chrome, Firefox e Edge. |
-| RNF08 | Confiabilidade | Os dados devem ter backup automático diário, com possibilidade de restauração. |
-
-### 2.3 Regras de negócio
-
-| ID | Regra |
-|----|-------|
-| RN01 | Uma composição deve ter exatamente 5 jogadores titulares, cada um com um agente, e um mesmo agente não pode aparecer duas vezes na mesma composição. |
-| RN02 | Um jogador só pode ser escalado em uma composição com um agente que conste na sua lista de agentes dominados. |
-| RN03 | O elenco pode ter no máximo 5 titulares, 2 reservas e 1 treinador, e um membro só pode pertencer a um time ativo por vez. |
-| RN04 | Um jogador não pode ser escalado nem confirmar presença em dois eventos (treinos ou partidas) com horários sobrepostos. |
-| RN05 | Um treino só é considerado confirmado depois que o manager do time convidado aceita o convite, e não pode ser agendado para uma data passada. |
-| RN06 | Um time só pode ser inscrito em um campeonato se tiver pelo menos 5 jogadores titulares cadastrados. |
-| RN07 | O resultado de um treino ou partida só pode ser registrado depois da data e do horário do evento. |
-| RN08 | Somente o treinador pode criar e alterar composições, agendar e cancelar treinos e registrar resultados, e somente o manager pode alterar o elenco, as inscrições em campeonatos e responder aos convites de treino. |
-| RN09 | Em um treino, cada mapa tem 24 rounds (12 em cada lado, ataque e defesa), independentemente do placar, e a soma dos pontos das duas equipes no mapa deve ser 24. |
-| RN10 | Em uma partida de campeonato, vence o mapa a equipe que chegar a 13 rounds com pelo menos 2 de diferença; se o placar chegar a 12 a 12, o mapa segue em prorrogação até uma equipe abrir 2 rounds de vantagem. |
-
-### 2.4 Documento de requisitos
-
-#### Documento de Especificação de Requisitos
+## 2. Documento de requisitos
 
 | | |
 |---|---|
@@ -131,133 +60,82 @@ O sistema é usado no dia a dia de times amadores, universitários e semiprofiss
 | **Cliente / Solicitante** | Não se aplica (projeto acadêmico). Disciplina de Análise e Projeto de Sistemas, Prof. Mateus de Freitas Invernisi |
 | **Responsável** | Olavo Appel Neto |
 | **Data** | Novembro de 2026 |
-| **Versão** | 1.0 |
+| **Versão** | 1.1 |
 
-#### 2.4.1 Introdução
+### 2.1 Introdução
 
-##### 2.4.1.1 Sobre este documento
+#### 2.1.1 Sobre este documento
 
-Este documento apresenta e organiza os requisitos levantados para o Valorant Team Manager (VTM), servindo de referência para as etapas de projeto, desenvolvimento, testes e validação.
+Apresenta os requisitos do VTM, servindo de referência para projeto, desenvolvimento, testes e validação.
 
-##### 2.4.1.2 Descrição do Mini-Mundo
+#### 2.1.2 Descrição do mini-mundo
 
-O Valorant é um jogo de FPS tático 5x5 em que duas equipes se alternam entre ataque e defesa em diferentes mapas. Cada jogador escolhe um agente (personagem) de uma das quatro funções: duelista, iniciador, controlador ou sentinela. Times amadores, universitários e semiprofissionais disputam campeonatos e, para se preparar, definem composições de agentes para cada mapa e realizam treinos (scrims) contra outros times.
+Times de Valorant preparam-se para campeonatos definindo composições de agentes para cada mapa e realizando treinos (scrims) contra outros times. Hoje esse processo é manual e disperso.
 
-Hoje esse processo é manual: as composições ficam em planilhas, imagens e conversas de Discord, os treinos são combinados por mensagens e não há registro organizado dos resultados.
+Os envolvidos são o **manager**, o **treinador** e o **jogador**. As entidades relevantes são time, jogador, agente, mapa, composição, treino, partida e campeonato. As regras do domínio incluem composições de 5 jogadores com agentes distintos, jogadores escalados apenas com agentes que dominam, e regras de pontuação diferentes para treino e partida oficial.
 
-Os principais envolvidos são o **treinador**, que monta composições e organiza treinos; o **jogador**, que informa os agentes que domina e confirma presença; e o **manager**, que administra o elenco e inscreve o time em campeonatos. As entidades relevantes são time, jogador, agente, mapa, composição, treino, campeonato e partida. As regras do domínio incluem composições com 5 jogadores e agentes não repetidos, e jogadores escalados apenas com agentes que dominam.
+#### 2.1.3 Propósito do sistema
 
-##### 2.4.1.3 Propósito do Sistema
-Organizar a rotina competitiva de uma equipe de Valorant em um registro único, consultável e padronizado, reunindo elenco, agentes dominados, composições por mapa, treinos e participação em campeonatos. Espera-se reduzir composições inviáveis, conflitos de horário e faltas em treinos, além de manter o histórico para acompanhar a evolução do time.
+Organizar a rotina competitiva de uma equipe de Valorant em um registro único, consultável e padronizado, reduzindo composições inviáveis, conflitos de horário e faltas em treinos, e mantendo o histórico para acompanhar a evolução do time.
 
-#### 2.4.2 Requisitos Funcionais
+### 2.2 Requisitos funcionais
 
 | ID | Descrição | Prioridade | Depende de |
 |----|-----------|------------|------------|
-| RF01 | O sistema deve permitir que o usuário se autentique com e-mail e senha e acesse apenas as funcionalidades do seu perfil (treinador, jogador ou manager), e que o manager crie a própria conta no primeiro acesso. | Alta | — |
+| RF01 | O sistema deve permitir que o usuário se autentique com e-mail e senha e acesse apenas as funcionalidades do seu perfil (manager, treinador ou jogador), e que o manager crie a própria conta no primeiro acesso. | Alta | — |
 | RF02 | O sistema deve permitir que o manager cadastre e edite os dados do time (nome, tag e logo). | Alta | RF01 |
-| RF03 | O sistema deve permitir que o manager adicione e remova membros do time (jogadores e treinador), informando nickname, e-mail, papel (titular, reserva ou treinador) e, para jogadores, a função principal, criando o acesso do novo membro ao sistema. | Alta | RF01, RF02 |
-| RF04 | O sistema deve permitir que o jogador registre os agentes que domina, informando o nível de proficiência de cada um (básico, intermediário ou avançado). | Alta | RF01, RF03 |
-| RF05 | O sistema deve permitir que o treinador crie uma composição para um mapa, associando um agente a cada jogador titular. | Alta | RF03, RF04 |
-| RF06 | O sistema deve permitir que o treinador edite, exclua e consulte as composições do time, filtrando por mapa. | Média | RF05 |
-| RF07 | O sistema deve permitir que o treinador agende um treino (scrim) com outro time cadastrado, informando data, horário, mapas e formato (MD1, MD2 ou MD3). | Alta | RF02, RF03 |
-| RF08 | O sistema deve permitir que o manager do time convidado aceite ou recuse o convite de treino recebido. | Alta | RF07 |
-| RF09 | O sistema deve permitir que o jogador confirme ou recuse sua presença em um treino ou partida agendados. | Média | RF07, RF12 |
-| RF10 | O sistema deve permitir que o treinador registre o resultado de um treino (placar por mapa) e observações sobre o desempenho do time. | Média | RF07 |
-| RF11 | O sistema deve permitir que o manager cadastre um campeonato (nome, datas e mapas disputados) e inscreva o time nele. | Média | RF02 |
-| RF12 | O sistema deve permitir que o treinador registre as partidas de um campeonato (adversário, data, mapa e resultado). | Média | RF11 |
-| RF13 | O sistema deve exibir ao jogador a agenda do time, com os treinos e as partidas futuras e o status de sua confirmação. | Média | RF09 |
-| RF14 | O sistema deve permitir consultar o histórico de treinos e partidas, filtrando por período, adversário e mapa. | Baixa | RF10, RF12 |
-| RF15 | O sistema deve permitir que o treinador cancele um treino agendado, notificando o time adversário e os jogadores. | Baixa | RF07 |
+| RF03 | O sistema deve permitir que o manager adicione e remova membros do time (jogadores e treinador), informando nickname, e-mail, papel (titular, reserva ou treinador) e, para jogadores, a função principal, criando o acesso do novo membro. | Alta | RF02 |
+| RF04 | O sistema deve permitir que o jogador registre os agentes que domina, com o nível de proficiência (básico, intermediário ou avançado). | Alta | RF03 |
+| RF05 | O sistema deve permitir que o treinador crie, edite, exclua e consulte composições de agentes por mapa, associando um agente a cada jogador titular. | Alta | RF03, RF04 |
+| RF06 | O sistema deve permitir que o treinador agende um treino com outro time cadastrado (data, horário, mapas e formato MD1, MD2 ou MD3) e o cancele, notificando o time adversário e os jogadores. | Alta | RF03 |
+| RF07 | O sistema deve permitir que o manager do time convidado aceite ou recuse o convite de treino. | Alta | RF06 |
+| RF08 | O sistema deve exibir ao jogador a agenda do time (treinos confirmados e partidas futuras) e permitir que ele confirme ou recuse presença. | Média | RF07, RF11 |
+| RF09 | O sistema deve permitir que o treinador registre o placar de cada mapa e as observações de um treino realizado. | Média | RF06 |
+| RF10 | O sistema deve permitir que o manager cadastre um campeonato (nome, datas e mapas disputados) e inscreva o time nele. | Média | RF03 |
+| RF11 | O sistema deve permitir que o treinador registre as partidas de um campeonato (adversário, data e mapa) e seus resultados. | Média | RF10 |
+| RF12 | O sistema deve permitir consultar o histórico de treinos e partidas realizados, filtrando por período, adversário e mapa. | Baixa | RF09, RF11 |
 
-#### 2.4.3 Requisitos Não Funcionais
+### 2.3 Requisitos não funcionais
 
 | ID | Descrição | Categoria | Prioridade | Depende de |
 |----|-----------|-----------|------------|------------|
-| RNF01 | As consultas (agenda, composições e histórico) devem responder em até 3 segundos em 95% das requisições, com até 100 usuários simultâneos. | Desempenho | Alta | RF06, RF13, RF14 |
-| RNF02 | O sistema deve ser responsivo e utilizável em computadores e celulares, e um usuário novo deve conseguir consultar sua agenda sem treinamento prévio. | Usabilidade | Média | RF13 |
-| RNF03 | As senhas devem ser armazenadas com hash e toda comunicação deve usar HTTPS. | Segurança | Alta | RF01 |
-| RNF04 | O acesso às funcionalidades deve ser controlado por perfil, e um usuário só pode ver e alterar dados do seu próprio time. | Segurança | Alta | RF01 |
-| RNF05 | O sistema deve ser organizado em camadas (apresentação, regras de negócio e persistência), de modo que uma alteração em uma camada não exija mudanças nas demais. | Manutenibilidade | Média | — |
-| RNF06 | O sistema deve estar disponível em pelo menos 95% do tempo, medido mensalmente. | Disponibilidade | Média | — |
-| RNF07 | O sistema deve funcionar nas duas últimas versões dos navegadores Chrome, Firefox e Edge. | Compatibilidade | Média | — |
-| RNF08 | Os dados devem ter backup automático diário, com possibilidade de restauração. | Confiabilidade | Média | — |
+| RNF01 | As consultas (agenda, composições e histórico) devem responder em até 3 segundos em 95% das requisições, com até 100 usuários simultâneos. | Desempenho | Alta | RF05, RF08, RF12 |
+| RNF02 | O sistema deve ser responsivo (computador e celular), e um usuário novo deve conseguir consultar sua agenda sem treinamento prévio. | Usabilidade | Média | RF08 |
+| RNF03 | As senhas devem ser armazenadas com hash, a comunicação deve usar HTTPS e um usuário só pode acessar dados do seu próprio time. | Segurança | Alta | RF01 |
+| RNF04 | O sistema deve ser organizado em camadas (apresentação, regras de negócio e persistência). | Manutenibilidade | Média | — |
+| RNF05 | O sistema deve estar disponível em pelo menos 95% do tempo, medido mensalmente. | Disponibilidade | Média | — |
 
-#### 2.4.4 Regras de Negócio
+### 2.4 Regras de negócio
 
 | ID | Descrição | Prioridade | Depende de |
 |----|-----------|------------|------------|
 | RN01 | Uma composição deve ter exatamente 5 jogadores titulares, cada um com um agente, e um mesmo agente não pode aparecer duas vezes na mesma composição. | Alta | RF05 |
 | RN02 | Um jogador só pode ser escalado em uma composição com um agente que conste na sua lista de agentes dominados. | Alta | RF04, RF05 |
 | RN03 | O elenco pode ter no máximo 5 titulares, 2 reservas e 1 treinador, e um membro só pode pertencer a um time ativo por vez. | Alta | RF03 |
-| RN04 | Um jogador não pode ser escalado nem confirmar presença em dois eventos (treinos ou partidas) com horários sobrepostos. | Alta | RF09 |
-| RN05 | Um treino só é considerado confirmado depois que o manager do time convidado aceita o convite, e não pode ser agendado para uma data passada. | Alta | RF07, RF08 |
-| RN06 | Um time só pode ser inscrito em um campeonato se tiver pelo menos 5 jogadores titulares cadastrados. | Média | RF11 |
-| RN07 | O resultado de um treino ou partida só pode ser registrado depois da data e do horário do evento. | Média | RF10, RF12 |
-| RN08 | Somente o treinador pode criar e alterar composições, agendar e cancelar treinos e registrar resultados, e somente o manager pode alterar o elenco, as inscrições em campeonatos e responder aos convites de treino. | Alta | RF01 |
-| RN09 | Em um treino, cada mapa tem 24 rounds (12 em cada lado, ataque e defesa), independentemente do placar, e a soma dos pontos das duas equipes no mapa deve ser 24. | Média | RF10 |
-| RN10 | Em uma partida de campeonato, vence o mapa a equipe que chegar a 13 rounds com pelo menos 2 de diferença; se o placar chegar a 12 a 12, o mapa segue em prorrogação até uma equipe abrir 2 rounds de vantagem. | Média | RF12 |
+| RN04 | Um jogador não pode ser escalado nem confirmar presença em dois eventos (treinos ou partidas) com horários sobrepostos. | Alta | RF06, RF08 |
+| RN05 | Um treino só é considerado confirmado depois que o manager do time convidado aceita o convite, e não pode ser agendado para uma data passada. | Alta | RF06, RF07 |
+| RN06 | Um time só pode ser inscrito em um campeonato se tiver pelo menos 5 jogadores titulares. | Média | RF10 |
+| RN07 | Em um treino, cada mapa tem 24 rounds (12 em cada lado), independentemente do placar, e a soma dos pontos das duas equipes deve ser 24. O resultado só pode ser registrado depois do horário do treino. | Média | RF09 |
+| RN08 | Em uma partida de campeonato, vence o mapa a equipe que chegar a 13 rounds com pelo menos 2 de diferença (em 12 a 12 há prorrogação até abrir 2 de vantagem). O resultado só pode ser registrado depois do horário da partida. | Média | RF11 |
 
-#### 2.4.5 Requisitos Suplementares
+### 2.5 Requisitos suplementares
 
 | ID | Descrição | Categoria | Prioridade | Depende de |
 |----|-----------|-----------|------------|------------|
 | RS01 | O sistema deve estar em conformidade com a LGPD, coletando apenas os dados pessoais necessários (nome, nickname e e-mail) e permitindo a exclusão da conta. | Legal | Média | RF01 |
 | RS02 | O sistema deve informar que não é afiliado à Riot Games e que Valorant e os nomes dos agentes são marcas de seus respectivos proprietários. | Legal | Baixa | — |
-| RS03 | O sistema deve ser acessado por navegador web, sem instalação de software nos computadores dos usuários. | Instalação | Média | — |
-| RS04 | A interface deve estar em português do Brasil. | Internacionalização | Baixa | — |
-| RS05 | O sistema deve ser acompanhado de um guia de uso com os fluxos principais de cada perfil. | Documentação | Baixa | — |
-
-### 2.5 Diagrama de casos de uso
-
-![Diagrama de casos de uso do VTM](imagens/diagrama-casos-de-uso.png)
-
-*Figura 1 – Diagrama de casos de uso do Valorant Team Manager.*
-
-#### Atores
-
-| Ator | Descrição |
-|------|-----------|
-| Manager | Administra o time, o elenco e as inscrições em campeonatos, e responde aos convites de treino. |
-| Treinador | Responsável técnico: monta composições, agenda e cancela treinos e registra resultados e partidas. |
-| Jogador | Membro do elenco: informa os agentes que domina, confirma presença e consulta a agenda. |
-
-#### Casos de uso
-
-| ID | Caso de uso | Atores | Requisitos |
-|----|-------------|--------|------------|
-| UC01 | Autenticar-se | Manager, Treinador, Jogador | RF01 |
-| UC02 | Gerenciar time | Manager | RF02 |
-| UC03 | Gerenciar elenco | Manager | RF03 |
-| UC04 | Registrar agentes dominados | Jogador | RF04 |
-| UC05 | Gerenciar composições | Treinador | RF05, RF06 |
-| UC06 | Agendar treino | Treinador | RF07 |
-| UC07 | Responder convite de treino | Manager | RF08 |
-| UC08 | Confirmar presença | Jogador | RF09 |
-| UC09 | Registrar resultado de treino | Treinador | RF10 |
-| UC10 | Inscrever time em campeonato | Manager | RF11 |
-| UC11 | Registrar partida de campeonato | Treinador | RF12 |
-| UC12 | Consultar agenda | Jogador | RF13 |
-| UC13 | Consultar histórico | Treinador, Manager | RF14 |
-| UC14 | Cancelar treino | Treinador | RF15 |
-| UC15 | Verificar conflito de horários | (incluído por UC06 e UC08) | RN04 |
-
-#### Relacionamentos
-
-- **UC06 – Agendar treino «include» UC15 – Verificar conflito de horários:** ao agendar, o sistema verifica se algum jogador já tem outro evento no mesmo horário (RN04).
-- **UC08 – Confirmar presença «include» UC15 – Verificar conflito de horários:** ao confirmar presença, o sistema faz a mesma verificação. Por ser um comportamento compartilhado por dois casos de uso, ele foi separado em UC15.
-
-### 2.6 Documentação dos casos de uso
-
-Cada caso de uso é descrito com seus atores, requisitos e regras de negócio relacionados, pré-condições, fluxo principal, fluxos alternativos e pós-condições. Os fluxos alternativos indicam o passo do fluxo principal em que ocorrem.
 
 ---
 
-#### UC01 – Autenticar-se
+## 3. Documentação dos casos de uso
+
+Cada caso de uso traz atores, requisitos e regras de negócio relacionados, pré-condições, fluxo principal, fluxos alternativos e pós-condições. O diagrama está em [Diagramas.md](Diagramas.md#1-diagrama-de-casos-de-uso).
+
+### UC01 – Autenticar-se
 
 - **Atores:** Manager, Treinador, Jogador
 - **Requisitos:** RF01
-- **Regras de negócio:** RN08
+- **Regras de negócio:** —
 - **Pré-condições:** o usuário possui uma conta no sistema (criada pelo manager no UC03) ou é um manager realizando o primeiro acesso (A3).
 
 **Fluxo principal**
@@ -278,11 +156,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC02 – Gerenciar time
+### UC02 – Gerenciar time
 
 - **Atores:** Manager
 - **Requisitos:** RF02
-- **Regras de negócio:** RN08
+- **Regras de negócio:** —
 - **Pré-condições:** o manager está autenticado.
 
 **Fluxo principal**
@@ -303,11 +181,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC03 – Gerenciar elenco
+### UC03 – Gerenciar elenco
 
 - **Atores:** Manager
 - **Requisitos:** RF03
-- **Regras de negócio:** RN03, RN08
+- **Regras de negócio:** RN03
 - **Pré-condições:** o manager está autenticado e o time está cadastrado (UC02).
 
 **Fluxo principal (adicionar membro)**
@@ -329,7 +207,7 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC04 – Registrar agentes dominados
+### UC04 – Registrar agentes dominados
 
 - **Atores:** Jogador
 - **Requisitos:** RF04
@@ -353,11 +231,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC05 – Gerenciar composições
+### UC05 – Gerenciar composições
 
 - **Atores:** Treinador
-- **Requisitos:** RF05, RF06
-- **Regras de negócio:** RN01, RN02, RN08
+- **Requisitos:** RF05
+- **Regras de negócio:** RN01, RN02
 - **Pré-condições:** o treinador está autenticado, o time tem 5 jogadores titulares e cada titular possui agentes registrados (UC04).
 
 **Fluxo principal (criar composição)**
@@ -383,11 +261,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC06 – Agendar treino
+### UC06 – Agendar treino
 
 - **Atores:** Treinador
-- **Requisitos:** RF07
-- **Regras de negócio:** RN04, RN05, RN08
+- **Requisitos:** RF06
+- **Regras de negócio:** RN04, RN05
 - **Pré-condições:** o treinador está autenticado e existe outro time cadastrado no sistema.
 
 **Fluxo principal**
@@ -412,11 +290,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC07 – Responder convite de treino
+### UC07 – Responder convite de treino
 
 - **Atores:** Manager (do time convidado)
-- **Requisitos:** RF08
-- **Regras de negócio:** RN05, RN08
+- **Requisitos:** RF07
+- **Regras de negócio:** RN05
 - **Pré-condições:** o manager está autenticado e existe um convite de treino pendente para o seu time.
 
 **Fluxo principal**
@@ -437,10 +315,10 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC08 – Confirmar presença
+### UC08 – Confirmar presença
 
 - **Atores:** Jogador
-- **Requisitos:** RF09
+- **Requisitos:** RF08
 - **Regras de negócio:** RN04
 - **Pré-condições:** o jogador está autenticado e existe um treino confirmado ou uma partida futura do seu time com resposta pendente.
 
@@ -462,11 +340,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC09 – Registrar resultado de treino
+### UC09 – Registrar resultado de treino
 
 - **Atores:** Treinador
-- **Requisitos:** RF10
-- **Regras de negócio:** RN07, RN08, RN09
+- **Requisitos:** RF09
+- **Regras de negócio:** RN07
 - **Pré-condições:** o treinador está autenticado e existe um treino confirmado cuja data e horário já passaram.
 
 **Fluxo principal**
@@ -480,7 +358,7 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 **Fluxos alternativos**
 - **A1 – Treino ainda não ocorreu (passo 1):** o sistema não permite registrar o resultado antes da data e do horário do treino (RN07).
-- **A2 – Placar inválido (passo 6):** o sistema indica os valores inválidos (vazios, negativos, não numéricos ou cuja soma por mapa não seja 24 rounds, conforme RN09) e retorna ao passo 3.
+- **A2 – Placar inválido (passo 6):** o sistema indica os valores inválidos (vazios, negativos, não numéricos ou cuja soma por mapa não seja 24 rounds, conforme RN07) e retorna ao passo 3.
 - **A3 – Editar resultado já registrado (passo 1):** o treinador seleciona um treino com resultado, altera os dados e o sistema atualiza o registro.
 - **A4 – Treino cancelado ou não confirmado (passo 1):** o sistema não permite registrar resultado.
 
@@ -488,11 +366,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC10 – Inscrever time em campeonato
+### UC10 – Inscrever time em campeonato
 
 - **Atores:** Manager
-- **Requisitos:** RF11
-- **Regras de negócio:** RN06, RN08
+- **Requisitos:** RF10
+- **Regras de negócio:** RN06
 - **Pré-condições:** o manager está autenticado e o time tem pelo menos 5 jogadores titulares cadastrados.
 
 **Fluxo principal**
@@ -516,11 +394,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC11 – Registrar partida de campeonato
+### UC11 – Registrar partida de campeonato
 
 - **Atores:** Treinador
-- **Requisitos:** RF12
-- **Regras de negócio:** RN07, RN08, RN10
+- **Requisitos:** RF11
+- **Regras de negócio:** RN08
 - **Pré-condições:** o treinador está autenticado e o time está inscrito em um campeonato.
 
 **Fluxo principal**
@@ -532,21 +410,21 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 6. O sistema registra a partida com o status "Agendada", que passa a aparecer na agenda dos jogadores para confirmação de presença (UC08).
 
 **Fluxos alternativos**
-- **A1 – Registrar resultado (passo 2):** após a data e o horário da partida, o treinador seleciona a partida, informa o placar de cada mapa e salva. O sistema valida o placar (RN10), registra o resultado e altera o status para "Realizada".
-- **A2 – Resultado antes do horário da partida (A1):** o sistema não permite registrar o resultado (RN07).
+- **A1 – Registrar resultado (passo 2):** após a data e o horário da partida, o treinador seleciona a partida, informa o placar de cada mapa e salva. O sistema valida o placar (RN08), registra o resultado e altera o status para "Realizada".
+- **A2 – Resultado antes do horário da partida (A1):** o sistema não permite registrar o resultado (RN08).
 - **A3 – Mapa fora da lista do campeonato (passo 5):** o sistema informa que o mapa não é disputado no campeonato e retorna ao passo 3.
 - **A4 – Data fora do período do campeonato (passo 5):** o sistema informa o erro e retorna ao passo 3.
 - **A5 – Dados obrigatórios ausentes (passo 5):** o sistema indica os campos faltantes e retorna ao passo 3.
-- **A6 – Placar inválido (A1):** se o placar não respeita a regra de 13 rounds com 2 de diferença ou a prorrogação (RN10), o sistema indica o erro e solicita uma nova informação.
+- **A6 – Placar inválido (A1):** se o placar não respeita a regra de 13 rounds com 2 de diferença ou a prorrogação (RN08), o sistema indica o erro e solicita uma nova informação.
 
 **Pós-condições:** a partida está registrada e, se informado, seu resultado também.
 
 ---
 
-#### UC12 – Consultar agenda
+### UC12 – Consultar agenda
 
 - **Atores:** Jogador
-- **Requisitos:** RF13
+- **Requisitos:** RF08
 - **Regras de negócio:** —
 - **Pré-condições:** o jogador está autenticado e pertence a um time.
 
@@ -565,11 +443,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC13 – Consultar histórico
+### UC13 – Consultar histórico
 
 - **Atores:** Treinador, Manager
-- **Requisitos:** RF14
-- **Regras de negócio:** RN08
+- **Requisitos:** RF12
+- **Regras de negócio:** —
 - **Pré-condições:** o usuário está autenticado como treinador ou manager.
 
 **Fluxo principal**
@@ -588,11 +466,11 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC14 – Cancelar treino
+### UC14 – Cancelar treino
 
 - **Atores:** Treinador
-- **Requisitos:** RF15
-- **Regras de negócio:** RN08
+- **Requisitos:** RF06
+- **Regras de negócio:** —
 - **Pré-condições:** o treinador está autenticado e existe um treino do seu time com status "Aguardando resposta" ou "Confirmado" que ainda não ocorreu.
 
 **Fluxo principal**
@@ -614,7 +492,7 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 ---
 
-#### UC15 – Verificar conflito de horários
+### UC15 – Verificar conflito de horários
 
 - **Atores:** nenhum ator direto. É executado pelo sistema quando incluído por UC06 e UC08.
 - **Requisitos:** —
@@ -632,50 +510,39 @@ Cada caso de uso é descrito com seus atores, requisitos e regras de negócio re
 
 **Pós-condições:** o resultado da verificação foi devolvido ao caso de uso chamador. Nenhum dado foi alterado.
 
-### 2.7 Diagrama de classes — modelo conceitual
+---
 
+## 4. Diagramas
+
+Os diagramas estão em [Diagramas.md](Diagramas.md):
+
+1. Diagrama de casos de uso
+2. Diagrama de classes: modelo conceitual
+3. Diagrama de classes: modelo de domínio
+4. Segundo diagrama UML
+
+---
+
+## 5. Protótipo do sistema
+
+O mapa do site e as telas estão em [Protótipo.md](Prot%C3%B3tipo.md).
+
+---
+
+## 6. Considerações finais
+
+### 6.1 Principais desafios
+> *A ser preenchido.*
+
+### 6.2 Aprendizados (integração entre análise e projeto)
+> *A ser preenchido.*
+
+### 6.3 Melhorias futuras
 > *A ser preenchido.*
 
 ---
 
-## 3. Fase de projeto
-
-### 3.1 Diagrama de classes — modelo de domínio
-
-> *A ser preenchido.*
-
-### 3.2 Segundo diagrama UML
-
-> *A ser preenchido.*
-
----
-
-## 4. Protótipo do sistema
-
-### 4.1 Mapa do site
-
-> *A ser preenchido.*
-
-### 4.2 Telas
-
-> *A ser preenchido.*
-
----
-
-## 5. Considerações finais
-
-### 5.1 Principais desafios
-> *A ser preenchido.*
-
-### 5.2 Aprendizados (integração entre análise e projeto)
-> *A ser preenchido.*
-
-### 5.3 Melhorias futuras
-> *A ser preenchido.*
-
----
-
-## 6. Referências
+## 7. Referências
 
 - **Ferramenta dos diagramas:** PlantUML, por meio do editor online PlantText (planttext.com)
 - **Ferramenta do protótipo:** *a definir*
